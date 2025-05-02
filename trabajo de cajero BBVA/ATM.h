@@ -1,24 +1,42 @@
 #ifndef ATM_H_INCLUDED
 #define ATM_H_INCLUDED
 
+struct cliente {
+    int nocliente;
+    float saldo;
+    char nombre[40];
+    int nip;
+};
+
 //Función para validar la contraseña del usuario.
-int login(){
-    int i=0, attemp=0, password = 1407;
+int login(struct cliente c1, struct cliente c2, struct cliente c3){
+    int i=0, attemp=0;
 
     for(i=3; i>0; i--){
         printf("Ingrese su pin numerico (tiene %d intentos): ", i);
         scanf("%d", &attemp);
 
-        if(attemp == password){
+        if(attemp == c1.nip){
             printf("\n");
             return 0;
         }else{
-            printf("\n--- Constrasena incorrecta ---\n\n");
+            if(attemp == c2.nip){
+            printf("\n");
+            return 1;
+            }else{
+                if(attemp == c3.nip){
+                printf("\n");
+                return 2;
+                }else{
+                    printf("\n--- Constrasena incorrecta ---\n\n");
+                }
+            }
         }
     }
     printf("\n\n\n\n\n************   Demasiados intentos fallidos   ************\n\n\n\n\n");
 exit(0);
 }
+
 
 int logincuenta(int hrm4){
     if((hrm4==1)||(hrm4==2)||(hrm4==3)){

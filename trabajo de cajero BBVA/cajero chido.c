@@ -3,23 +3,15 @@
 
 int main(){
 
-    int option = 0, cuenta = 0, timer = 2;
-    float saldo[3] = {1000.00, 2000.00, 10000,00};
+    int option = 0, timer = 2, i=0;
+    float hrm1;
 
-    printf("La contraseña es 1407\n");
-    login();    //Llamado de la función encargada de la verificación de la contraseña
+    struct cliente customer[3] = {
+        {1, 1000.00, "Mario Alejandro", 1234},
+        {2, 1000.00, "Karla Flores", 5678},
+        {3, 1000.00, "Baruc Gutierrez", 9012}};
 
-    do{
-    printf("*****         Seleccione Su Cuenta          *****\n\n");
-    printf("1.\t Cuenta 1\n");
-    printf("2.\t Cuenta 2\n");
-    printf("3.\t Cuenta 3\n");
-    printf("\nSeleccione una opcion:\t");
-    scanf("%d", &cuenta);
-    printf("\n************************************************\n\n");
-
-    }while(logincuenta(cuenta)!=1);
-    cuenta--;
+    int cuenta = login(customer[0], customer[1], customer[2]);    //Llamado de la función encargada de la verificación de la contraseña
 
     do{
         printf("*****        Cajero Automatico BBVA        *****\n\n");
@@ -34,23 +26,25 @@ int main(){
         switch(option){
         case 1: //Muestra el saldo en pantalla
             printf("*****           Consultar Saldo            *****");
-            printf("\n\nSu saldo es: %.2f\n\n", saldo[cuenta]);
+            printf("\n\nSu saldo es: %.2f\n\n", customer[cuenta].saldo);
             printf("************************************************\n\n\n");
             sleep(timer);
             printf("                     ------\n\n\n");
             break;
         case 2: //Manda a llamar a la funcion de cambio y muestra el valor despues de haberlo cambiado
             printf("*****           Depositar Dinero           *****");
-            saldo[cuenta] = cambio(0, saldo[cuenta]);
-            printf("\nSu saldo actual es: %.2f\n\n", saldo[cuenta]);
+            hrm1 = customer[cuenta].saldo;
+            customer[cuenta].saldo = cambio(0, hrm1);
+            printf("\nSu saldo actual es: %.2f\n\n", customer[cuenta].saldo);
             printf("************************************************\n\n\n");
             sleep(timer);
             printf("                     ------\n\n\n");
             break;
         case 3: //Manda a llamar a la funcion de cambio y muestra el valor despues de haberlo cambiado
             printf("*****            Retirar Dinero            *****");
-            saldo[cuenta] = cambio(1, saldo[cuenta]);
-            printf("\nSu saldo actual es: %.2f\n\n", saldo[cuenta]);
+            hrm1 = customer[cuenta].saldo;
+            customer[cuenta].saldo = cambio(1, hrm1);
+            printf("\nSu saldo actual es: %.2f\n\n", customer[cuenta].saldo);
             printf("************************************************\n\n\n");
             sleep(timer);
             printf("                     ------\n\n\n");
@@ -75,5 +69,5 @@ int main(){
 
 
 
-return 0;
+    return 0;
 }
